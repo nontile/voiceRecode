@@ -32,5 +32,20 @@
         app:pstsIndicatorHeight="@dimen/tab_indicator_height"
         app:pstsShouldExpand="true"
         tools:ignore="MissingConstraints" />
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:background="@color/white"
+        tools:ignore="MissingConstraints" />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
