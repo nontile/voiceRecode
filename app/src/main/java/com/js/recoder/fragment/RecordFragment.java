@@ -55,7 +55,7 @@ public class RecordFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View recordView = inflater.inflate(R.layout.fragment_record, container, false);
-        return recordView;
+        View v = inflater.inflate(R.layout.fragment_record, container, false);
+        return v;
     }
 }

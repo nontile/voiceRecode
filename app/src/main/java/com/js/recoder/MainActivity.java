@@ -1,6 +1,7 @@
 package com.js.recoder;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.google.android.material.tabs.TabLayout;
 import com.js.recoder.fragment.FileViewFragment;
 import com.js.recoder.fragment.RecordFragment;
 
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String LOG = MainActivity.class.getSimpleName();
 
-    private PagerSlidingTabStrip tabs;
+    private TabLayout tabs;
     private ViewPager pager;
 
     @Override
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         pager = findViewById(R.id.pager);
-        pager.setAdapter(new MyAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
+        pager.setAdapter(new MyAdapter(getSupportFragmentManager()));
         tabs = findViewById(R.id.tabs);
         tabs.setViewPager(pager);
 
@@ -45,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
         private String[] titles = {getString(R.string.tab_title_record), getString(R.string.tab_title_saved_recordings)};
 
-        public MyAdapter(@NonNull FragmentManager fm, int behavior) {
-            super(fm, behavior);
+        public MyAdapter(@NonNull FragmentManager fm) {
+            super(fm);
         }
 
         @NonNull
@@ -63,7 +65,16 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 0;
+            return titles.length;
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
         }
     }
+
+    public MainActivity(){}
+
 }

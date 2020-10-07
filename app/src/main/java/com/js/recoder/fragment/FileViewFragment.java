@@ -34,14 +34,15 @@ public class FileViewFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         position = getArguments().getInt(ARG_POSITION);
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View fileView = inflater.inflate(R.layout.fragment_file, container, false);
+        View v = inflater.inflate(R.layout.fragment_file, container, false);
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return v;
     }
 }
