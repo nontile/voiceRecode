@@ -11,8 +11,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
-
-import com.astuetz.PagerSlidingTabStrip;
 import com.google.android.material.tabs.TabLayout;
 import com.js.recoder.fragment.FileViewFragment;
 import com.js.recoder.fragment.RecordFragment;
@@ -30,15 +28,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         pager = findViewById(R.id.pager);
-        pager.setAdapter(new MyAdapter(getSupportFragmentManager()));
+        pager.setAdapter(new MyAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
         tabs = findViewById(R.id.tabs);
-        tabs.setViewPager(pager);
+        tabs.setupWithViewPager(pager);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setPopupTheme(R.style.ThemeOverlay_AppCompat_Light);
-        if(toolbar !=null){
-            setSupportActionBar(toolbar);
-        }
+       // Toolbar toolbar = findViewById(R.id.toolbar);
+     //   toolbar.setPopupTheme(R.style.ThemeOverlay_AppCompat_Light);
+   //     if(toolbar !=null){
+ //           setSupportActionBar(toolbar);
+//        }
 
 
     }
@@ -47,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
         private String[] titles = {getString(R.string.tab_title_record), getString(R.string.tab_title_saved_recordings)};
 
-        public MyAdapter(@NonNull FragmentManager fm) {
-            super(fm);
+        public MyAdapter(@NonNull FragmentManager fm, int behavior) {
+            super(fm, behavior);
         }
 
         @NonNull
