@@ -57,8 +57,9 @@ public class MainActivity extends AppCompatActivity {
                     return RecordFragment.newInstance(position);
                 case 1:
                     return FileViewFragment.newInstance(position);
+                default:
+                    return null;
             }
-            return null;
         }
 
         @Override

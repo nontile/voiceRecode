@@ -18,7 +18,7 @@ public class FileViewFragment extends Fragment {
 
     private int position;
 
-    FileViewFragment (){}
+    public FileViewFragment (){}
 
     public static FileViewFragment newInstance(int position) {
 
@@ -36,13 +36,13 @@ public class FileViewFragment extends Fragment {
         position = getArguments().getInt(ARG_POSITION);
 
     }
-
+    private View view;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_file, container, false);
+        view = inflater.inflate(R.layout.fragment_file, container, false);
 
-        return v;
+        return view;
     }
 }

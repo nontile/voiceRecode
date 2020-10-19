@@ -22,17 +22,17 @@ public class RecordFragment extends Fragment {
 
     private int position;
 
-    private FloatingActionButton mRecordButton = null;
-    private Button mPauseButton = null;
-
-    private TextView mRecordingPrompt;
-    private int mRecordPromptCount = 0;
-
-    private boolean mStartRecording = true;
-    private boolean mPauseRecording = true;
-
-    private Chronometer mChronometer = null;
-    long timeWhenPaused = 0; //stores time when user clicks pause button
+//    private FloatingActionButton mRecordButton = null;
+//    private Button mPauseButton = null;
+//
+//    private TextView mRecordingPrompt;
+//    private int mRecordPromptCount = 0;
+//
+//    private boolean mStartRecording = true;
+//    private boolean mPauseRecording = true;
+//
+//    private Chronometer mChronometer = null;
+//    long timeWhenPaused = 0; //stores time when user clicks pause button
 
     public static RecordFragment newInstance(int position) {
 
@@ -44,18 +44,18 @@ public class RecordFragment extends Fragment {
         return fragment;
     }
 
-    RecordFragment(){}
+    public RecordFragment(){}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         position = getArguments().getInt(ARG_POSITION);
     }
-
+    private View view;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_record, container, false);
-        return v;
+        view = inflater.inflate(R.layout.fragment_record, container, false);
+        return view;
     }
 }
