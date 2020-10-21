@@ -32,11 +32,11 @@ public class MainActivity extends AppCompatActivity {
         tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(pager);
 
-       // Toolbar toolbar = findViewById(R.id.toolbar);
-     //   toolbar.setPopupTheme(R.style.ThemeOverlay_AppCompat_Light);
-   //     if(toolbar !=null){
- //           setSupportActionBar(toolbar);
-//        }
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setPopupTheme(R.style.ThemeOverlay_AppCompat_Light);
+        if(toolbar !=null){
+            setSupportActionBar(toolbar);
+        }
 
 
     }
