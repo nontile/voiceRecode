@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_record"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_btn_speak_now"
+        tools:layout_editor_absoluteX="204dp"
+        tools:layout_editor_absoluteY="480dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="251dp"
+        android:layout_height="127dp"
+        tools:layout_editor_absoluteX="123dp"
+        tools:layout_editor_absoluteY="325dp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:text="record"
-        />
-</RelativeLayout>
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="-102dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
