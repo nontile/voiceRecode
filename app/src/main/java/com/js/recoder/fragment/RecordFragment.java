@@ -12,8 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.js.recoder.R;
-import com.melnykov.fab.FloatingActionButton;
+
 
 public class RecordFragment extends Fragment {
 
@@ -21,18 +22,17 @@ public class RecordFragment extends Fragment {
     private static final String LOG_TAG = RecordFragment.class.getSimpleName();
 
     private int position;
+    private FloatingActionButton recordBtn = null;
+    private Button pauseBtn = null;
 
-//    private FloatingActionButton mRecordButton = null;
-//    private Button mPauseButton = null;
-//
-//    private TextView mRecordingPrompt;
-//    private int mRecordPromptCount = 0;
-//
-//    private boolean mStartRecording = true;
-//    private boolean mPauseRecording = true;
-//
-//    private Chronometer mChronometer = null;
-//    long timeWhenPaused = 0; //stores time when user clicks pause button
+    private TextView recodingTv;
+    private int recodingTvCount = 0;
+
+    private boolean startRecording = true;
+    private boolean pauseRecording = true;
+
+    private Chronometer chronometer = null;
+    long timeWhenPaused = 0; //stores time when user clicks pause button
 
     public static RecordFragment newInstance(int position) {
 
@@ -56,6 +56,28 @@ public class RecordFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_record, container, false);
+        chronometer = view.findViewById(R.id.chronometer);
+        recodingTv = view.findViewById(R.id.recordingTv);
+        recordBtn = view.findViewById(R.id.recordBtn);
+        recordBtn.setBackgroundColor(getResources().getColor(R.color.primary));
+        recordBtn.setRippleColor(getResources().getColor(R.color.primary_dark));
+        recordBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                onRecord(startRecording);
+                startRecording = !startRecording;
+            }
+        });
         return view;
+    }
+
+    //TODO: start, stop, recording, pause
+    private void onRecord(boolean start){
+        if(start) {
+            recordBtn.setImageResource(R.drawable.ic_stop_36);
+
+        }else{
+            recordBtn.setImageResource(R.drawable.ic_mic_36);
+        }
     }
 }

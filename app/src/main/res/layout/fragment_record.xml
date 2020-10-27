@@ -9,7 +9,7 @@
     >
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/recordBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -28,7 +28,7 @@
         app:layout_constraintBottom_toTopOf="@+id/recordProgressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/recordingTv" />
 
     <ProgressBar
         android:id="@+id/recordProgressBar"
@@ -46,7 +46,7 @@
         app:layout_constraintVertical_bias="0.687" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/recordingTv"
         android:layout_width="0dp"
 
         android:layout_height="48dp"
@@ -67,13 +67,13 @@
         app:layout_constraintVertical_bias="0.123" />
 
     <Button
-        android:id="@+id/btnPause"
+        android:id="@+id/pauseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
-        android:text="Pause"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton2"
-        app:layout_constraintEnd_toEndOf="@+id/floatingActionButton2"
-        app:layout_constraintStart_toStartOf="@+id/floatingActionButton2" />
+        android:text="@string/pause"
+        app:layout_constraintBottom_toTopOf="@+id/recordBtn"
+        app:layout_constraintEnd_toEndOf="@+id/recordBtn"
+        app:layout_constraintStart_toStartOf="@+id/recordBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
