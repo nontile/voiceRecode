@@ -15,65 +15,68 @@
         android:clickable="true"
         android:focusable="true"
         app:backgroundTint="#FFEB3B"
+        app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recordProgressBar"
-        app:srcCompat="@android:drawable/ic_btn_speak_now" />
+        app:layout_constraintTop_toBottomOf="@+id/recordingTv"
+        app:maxImageSize="36dp"
+        app:srcCompat="@drawable/ic_mic_36" />
+
+    <ProgressBar
+        android:id="@+id/recordProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/record_progress_bar"
+        android:background="@drawable/record_progress_bar_background"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0"
+        app:layout_constraintBottom_toTopOf="@+id/recordingTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.389" />
 
     <Chronometer
         android:id="@+id/chronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/recordProgressBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recordingTv" />
-
-    <ProgressBar
-        android:id="@+id/recordProgressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:indeterminate="false"
-        android:max="100"
-        android:progress="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.687" />
+        android:textSize="54sp"
+        app:layout_constraintBottom_toBottomOf="@+id/recordProgressBar"
+        app:layout_constraintEnd_toEndOf="@+id/recordProgressBar"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="@+id/recordProgressBar"
+        app:layout_constraintTop_toTopOf="@+id/recordProgressBar"
+        app:layout_constraintVertical_bias="0.437" />
 
     <TextView
         android:id="@+id/recordingTv"
         android:layout_width="0dp"
-
         android:layout_height="48dp"
-        android:padding="5sp"
-        android:paddingStart="5sp"
-        android:paddingLeft="5sp"
-        android:paddingTop="5sp"
-        android:paddingEnd="5sp"
-        android:paddingRight="5sp"
-        android:paddingBottom="5sp"
-        android:text="@string/app_name"
+        android:padding="5dp"
+        android:text="@string/record_prompt"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.123" />
+        app:layout_constraintVertical_bias="0.7" />
 
     <Button
         android:id="@+id/pauseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/pause"
         app:layout_constraintBottom_toTopOf="@+id/recordBtn"
         app:layout_constraintEnd_toEndOf="@+id/recordBtn"
-        app:layout_constraintStart_toStartOf="@+id/recordBtn" />
+        app:layout_constraintStart_toStartOf="@+id/recordBtn"
+        app:layout_constraintTop_toBottomOf="@+id/recordingTv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
