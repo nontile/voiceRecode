@@ -67,6 +67,7 @@ public class RecordFragment extends Fragment {
         chronometer = view.findViewById(R.id.chronometer);
         recordingTv = view.findViewById(R.id.recordingTv);
         recordBtn = view.findViewById(R.id.recordBtn);
+
         recordBtn.setBackgroundColor(getResources().getColor(R.color.primary));
         recordBtn.setRippleColor(getResources().getColor(R.color.primary_dark));
         recordBtn.setOnClickListener(new View.OnClickListener(){
@@ -74,6 +75,16 @@ public class RecordFragment extends Fragment {
             public void onClick(View view) {
                 onRecord(startRecording);
                 startRecording = !startRecording;
+            }
+        });
+
+        pauseBtn = (Button) view.findViewById(R.id.pauseBtn);
+        pauseBtn.setVisibility(View.GONE); //hide pause button before recording starts
+        pauseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onPauseRecord(pauseRecording);
+                pauseRecording = !pauseRecording;
             }
         });
         return view;
@@ -88,7 +99,7 @@ public class RecordFragment extends Fragment {
                 recordBtn.setImageResource(R.drawable.ic_stop_36);
                 //mPauseButton.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(),R.string.toast_recording_start,Toast.LENGTH_SHORT).show();
-                File folder = new File(Environment.getExternalStorageDirectory() + "/SoundRecorder");
+                File folder = new File(Environment.getExternalStorageDirectory() + "/ChickRecorder");
                 if (!folder.exists()) {
                     //folder /SoundRecorder doesn't exist, create the folder
                     folder.mkdir();
@@ -129,6 +140,25 @@ public class RecordFragment extends Fragment {
             getActivity().stopService(intent);
             getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        }
+    }
+
+    //TODO: implement pause recording
+    private void onPauseRecord(boolean pause) {
+        if (pause) {
+            //pause recording
+            pauseBtn.setCompoundDrawablesWithIntrinsicBounds
+                    (R.drawable.ic_play_yellow_36 ,0 ,0 ,0);
+            recordingTv.setText((String)getString(R.string.resume_recording_button).toUpperCase());
+            timeWhenPaused = chronometer.getBase() - SystemClock.elapsedRealtime();
+            chronometer.stop();
+        } else {
+            //resume recording
+            pauseBtn.setCompoundDrawablesWithIntrinsicBounds
+                    (R.drawable.ic_pause_yello_24 ,0 ,0 ,0);
+            recordingTv.setText((String)getString(R.string.pause_recording_button).toUpperCase());
+            chronometer.setBase(SystemClock.elapsedRealtime() + timeWhenPaused);
+            chronometer.start();
         }
     }
 }
