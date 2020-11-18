@@ -5,11 +5,14 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.IBinder;
+import android.provider.DocumentsContract;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -53,7 +56,6 @@ public class RecordingService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        Toast.makeText(this, "onBind", Toast.LENGTH_SHORT).show();
         return null;
     }
 
@@ -65,7 +67,6 @@ public class RecordingService extends Service {
     public void onCreate() {
         super.onCreate();
         mDatabase = new DBHelper(getApplicationContext());
-        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -116,21 +117,18 @@ public class RecordingService extends Service {
     }
 
     public void setFileNameAndPath(){
-        mFilePath = getExternalCacheDir().getAbsolutePath() + String.valueOf(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
-        mFilePath += "/voice.mp3";
 //        int count = 0;
 //        File f;
-//
+
 //        do{
 //            count++;
-//
-//            mFileName = getString(R.string.default_file_name)
-//                    + "_" + (mDatabase.getCount() + count) + ".mp4";
-//            mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-//            mFilePath += "/VoiceRecorder/" + mFileName;
-//
-//            f = new File(mFilePath);
-//
+            String temp = String.valueOf(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+            mFileName = getString(R.string.default_file_name) + "_" + temp + ".mp4";
+            mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+            mFilePath += "/VoiceRecorder/" + mFileName;
+
+            File f = new File(mFilePath);
+
 //        }while (f.exists() && !f.isDirectory());
     }
 
