@@ -1,5 +1,6 @@
 package com.js.recoder;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -18,10 +19,11 @@ import androidx.core.app.NotificationCompat;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -47,8 +49,11 @@ public class RecordingService extends Service {
     private Timer mTimer = null;
     private TimerTask mIncrementTimerTask = null;
 
+    public RecordingService(){}
+
     @Override
     public IBinder onBind(Intent intent) {
+        Toast.makeText(this, "onBind", Toast.LENGTH_SHORT).show();
         return null;
     }
 
@@ -60,18 +65,23 @@ public class RecordingService extends Service {
     public void onCreate() {
         super.onCreate();
         mDatabase = new DBHelper(getApplicationContext());
+        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         startRecording();
+
+        Toast.makeText(this, mFilePath, Toast.LENGTH_SHORT).show();
         return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
         if (mRecorder != null) {
+            Toast.makeText(this, " onDestroy ", Toast.LENGTH_SHORT).show();
             stopRecording();
+
         }
 
         super.onDestroy();
@@ -106,32 +116,26 @@ public class RecordingService extends Service {
     }
 
     public void setFileNameAndPath(){
-        int count = 0;
-        File f;
-
-        do{
-            count++;
-            String seqNo = String.valueOf(mDatabase.getCount() + count);
-
-            mFileName = getString(R.string.default_file_name)
-                    + "_" + seqNo + ".mp4";
-            mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/ChickRecorder/" + mFileName;
-
-            f = new File(mFilePath);
-            try {
-                if(!f.isDirectory()) {
-                    f.mkdirs();
-                }
-                f.createNewFile();
-
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        }while (f.exists() && !f.isDirectory());
+        mFilePath = getExternalCacheDir().getAbsolutePath() + String.valueOf(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+        mFilePath += "/voice.mp3";
+//        int count = 0;
+//        File f;
+//
+//        do{
+//            count++;
+//
+//            mFileName = getString(R.string.default_file_name)
+//                    + "_" + (mDatabase.getCount() + count) + ".mp4";
+//            mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+//            mFilePath += "/VoiceRecorder/" + mFileName;
+//
+//            f = new File(mFilePath);
+//
+//        }while (f.exists() && !f.isDirectory());
     }
 
     public void stopRecording() {
-        Toast.makeText(this, getString(R.string.toast_recording_finish) + " " + mFilePath, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.toast_recording_finish) + " " , Toast.LENGTH_SHORT).show();
         mRecorder.stop();
         mElapsedMillis = (System.currentTimeMillis() - mStartingTimeMillis);
         mRecorder.release();
