@@ -83,8 +83,9 @@ public class RecordingService extends Service {
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-        mRecorder.setOutputFile(mFilePath);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        mRecorder.setOutputFile(mFilePath);
+        Log.e(LOG_TAG, "mFilePath: "+ mFilePath);
         mRecorder.setAudioChannels(1);
         if (MySharedPreferences.getPrefHighQuality(this)) {
             mRecorder.setAudioSamplingRate(44100);
@@ -100,7 +101,7 @@ public class RecordingService extends Service {
             //startForeground(1, createNotification());
 
         } catch (IOException e) {
-            Log.e(LOG_TAG, "prepare() failed");
+            Log.e(LOG_TAG, "prepare() failed" + e.toString());
         }
     }
 
@@ -110,13 +111,22 @@ public class RecordingService extends Service {
 
         do{
             count++;
+            String seqNo = String.valueOf(mDatabase.getCount() + count);
 
             mFileName = getString(R.string.default_file_name)
-                    + "_" + (mDatabase.getCount() + count) + ".mp4";
-            mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-            mFilePath += "/ChickRecorder/" + mFileName;
+                    + "_" + seqNo + ".mp4";
+            mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/ChickRecorder/" + mFileName;
 
             f = new File(mFilePath);
+            try {
+                if(!f.isDirectory()) {
+                    f.mkdirs();
+                }
+                f.createNewFile();
+
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }while (f.exists() && !f.isDirectory());
     }
 
