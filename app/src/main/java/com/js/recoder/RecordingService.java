@@ -72,19 +72,14 @@ public class RecordingService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         startRecording();
-
-        Toast.makeText(this, mFilePath, Toast.LENGTH_SHORT).show();
         return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
         if (mRecorder != null) {
-            Toast.makeText(this, " onDestroy ", Toast.LENGTH_SHORT).show();
             stopRecording();
-
         }
-
         super.onDestroy();
     }
 
@@ -96,7 +91,6 @@ public class RecordingService extends Service {
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
         mRecorder.setOutputFile(mFilePath);
-        Log.e(LOG_TAG, "mFilePath: "+ mFilePath);
         mRecorder.setAudioChannels(1);
         if (MySharedPreferences.getPrefHighQuality(this)) {
             mRecorder.setAudioSamplingRate(44100);
@@ -117,23 +111,20 @@ public class RecordingService extends Service {
     }
 
     public void setFileNameAndPath(){
-//        int count = 0;
-//        File f;
-
-//        do{
-//            count++;
-            String temp = String.valueOf(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
-            mFileName = getString(R.string.default_file_name) + "_" + temp + ".mp4";
+        int count = 0;
+        File f;
+        do{
+            count++;
+//            String temp = String.valueOf(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+            mFileName = getString(R.string.default_file_name) + "_" + (mDatabase.getCount() + count) + ".mp4";
             mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath();
             mFilePath += "/VoiceRecorder/" + mFileName;
 
-            File f = new File(mFilePath);
-
-//        }while (f.exists() && !f.isDirectory());
+            f = new File(mFilePath);
+        }while (f.exists() && !f.isDirectory());
     }
 
     public void stopRecording() {
-        Toast.makeText(this, getString(R.string.toast_recording_finish) + " " , Toast.LENGTH_SHORT).show();
         mRecorder.stop();
         mElapsedMillis = (System.currentTimeMillis() - mStartingTimeMillis);
         mRecorder.release();
